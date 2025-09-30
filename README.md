@@ -17,22 +17,6 @@ End-to-end test automation framework for Fashion Hub application using Playwrigh
   - Configure via `src/config/env.config.ts`
   - Run with `ENV=local|stage|prod npm run ui:desktop|ui:devices`
 
-- **Advanced Reporting with Allure**
-  - Detailed test execution reports with rich visualizations
-  - Screenshots automatically attached for failed test cases
-  - Full error stack traces for debugging
-  - Test case history and trends
-  - Duration statistics and performance metrics
-  - Videos and traces for test replay
-  - Customizable dashboards and filters
-  - Real-time analytics
-
-- **Page Object Model**
-  - Fluent API design pattern
-  - Reusable page components
-  - Built-in assertions
-  - Type-safe with TypeScript
-
 ## Project Structure
 
 ```
@@ -45,6 +29,41 @@ fashion-hub-test/
 ├── tests/              # Test specifications
 ├── test-results/       # Test artifacts (reports, traces, etc.)
 └── playwright.config.ts
+```
+
+## Best Practices
+
+1. **Page Objects**
+   - Use fluent API for better readability
+   - Built-in assertions & test data access file
+   - Initialize locators at class level
+   - Return page objects for navigation
+   - Single point import via page-loader
+   - Use composition for common components (e.g., HeaderPanel)
+
+2. **Test Cases**
+   - One assertion per test
+   - Use fluent chain for test steps
+   - Keep tests independent with domain-friendly scenarios (user journey based)
+   - No shared state between tests
+   - Focus on business flows over technical details
+
+3. **Configuration**
+   - Use TypeScript for type safety
+   - Configure timeouts in playwright.config.ts
+   - Set environment-specific settings in env.config.ts
+
+## Example Test
+
+```typescript
+test('should login successfully', async ({ page }) => {
+  await new LoginPage(page)
+    .navigate()
+    .then(page => page.enterUsername('Admin'))
+    .then(page => page.enterPassword('admin123'))
+    .then(page => page.clickLogin())
+    .then(home => home.verifyHomeState());
+});
 ```
 
 ## Available Scripts
@@ -62,16 +81,6 @@ fashion-hub-test/
 - `npm run ui:gui` - Open Playwright UI mode
 - `npm run gen:report` - Show HTML test report
 
-### Allure Reports
-- `npm run gen:report` - Generate and serve Allure report from test results
-
-**Features:**
-- Automatic screenshot attachment on test failures
-- Full error stack traces for debugging
-- Video recordings and traces included
-- Interactive timeline and charts
-- Test history and trends
-- Filter by status, severity, and more
 
 ### Code Quality
 - `npm run audit` - Run TypeScript type checking
@@ -92,6 +101,7 @@ ENV=prod npm run ui:devices
 
 ### Allure Report
 Run tests and generate Allure report:
+screenshot attachment, Full error stack traces, Filter by status, severity, and more
 ```bash
 npm run ui:headed
 npm run gen:report
@@ -130,41 +140,4 @@ The project includes a CI/CD pipeline that:
 After pipeline execution, view the Allure report at:
 ```
 https://<your-username>.github.io/<repository-name>
-```
-
-## Best Practices
-
-1. **Page Objects**
-   - Use fluent API for better readability
-   - Keep assertions in page objects
-   - Initialize locators at class level
-   - Return page objects for navigation
-   - Single point import via page-loader
-   - Use composition for common components (e.g., HeaderPanel)
-
-2. **Test Cases**
-   - One assertion per test
-   - Use fluent chain for test steps
-   - Keep tests independent
-   - No shared state between tests
-   - Domain-friendly scenarios (user journey based)
-   - Minimize technical knowledge requirements
-   - Focus on business flows over technical details
-
-3. **Configuration**
-   - Use TypeScript for type safety
-   - Configure timeouts in playwright.config.ts
-   - Set environment-specific settings in env.config.ts
-
-## Example Test
-
-```typescript
-test('should login successfully', async ({ page }) => {
-  await new LoginPage(page)
-    .navigate()
-    .then(page => page.enterUsername('Admin'))
-    .then(page => page.enterPassword('admin123'))
-    .then(page => page.clickLogin())
-    .then(home => home.verifyHomeState());
-});
 ```
