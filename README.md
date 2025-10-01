@@ -32,15 +32,6 @@ npm run pulls:run      # Pull request analysis
 npm run ui:headed
 ```
 
-### Verify Installation
-```bash
-# Check TypeScript compilation
-npm run audit
-
-# Run a simple test
-npm run console:run
-```
-
 ## Features
 
 - **Cross-browser/device Testing**
