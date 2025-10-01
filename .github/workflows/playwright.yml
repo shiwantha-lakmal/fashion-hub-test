@@ -31,7 +31,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run UI tests
-      run: npm run ui:headless -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --project=chromium
+      run: playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }} --project=chromium
       env:
         CI: true
 
