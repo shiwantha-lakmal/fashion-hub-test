@@ -2,6 +2,48 @@
 
 End-to-end test automation framework for Fashion Hub application using Playwright.
 
+## Setup Local
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/shiwantha-lakmal/fashion-hub-test.git
+cd fashion-hub-test
+
+# Install dependencies
+npm install
+
+# Install Playwright browsers
+npx playwright install
+```
+
+### Quick Start
+```bash
+# Run all tests
+npm run ui:headless
+
+# Run specific test suites
+npm run console:run    # Console error testing
+npm run links:run      # Broken link validation
+npm run pulls:run      # Pull request analysis
+
+# Run with browser UI
+npm run ui:headed
+```
+
+### Verify Installation
+```bash
+# Check TypeScript compilation
+npm run audit
+
+# Run a simple test
+npm run console:run
+```
+
 ## Features
 
 - **Cross-browser/device Testing**
@@ -22,47 +64,62 @@ End-to-end test automation framework for Fashion Hub application using Playwrigh
 ```
 fashion-hub-test/
 ├── src/
-│   ├── config/         # Environment and page loader configurations
+│   ├── config/         # Environment, page loader, and utility configurations
+│   │   ├── env.config.ts      # Environment settings
+│   │   ├── page.config.ts     # Playwright fixtures
+│   │   ├── page-loader.ts     # Page object loader
+│   │   └── util.config.ts     # Data export utilities
+│   ├── api/            # API clients
+│   │   ├── BaseClient.ts      # Base API client
+│   │   └── GitHubClient.ts    # GitHub API client
 │   └── gui/            # GUI components
 │       ├── pages/      # Page objects with fluent API
-│       └── panels/     # Reusable UI components (HeaderPanel)
+│       └── panels/     # Reusable UI components
 ├── tests/              # Test specifications
+│   ├── fashion-login.spec.ts    # Login functionality tests
+│   ├── fashion-console.spec.ts  # Console error validation
+│   ├── fashion-href.spec.ts     # Broken link validation
+│   └── fashion-pull.spec.ts     # Pull request analysis
 ├── test-results/       # Test artifacts (reports, traces, etc.)
+├── pull-request.csv    # Generated CSV file
 └── playwright.config.ts
 ```
 
 ## Best Practices
 
 1. **Page Objects**
-   - Use fluent API for better readability
+   - Use fluent design for better readability
    - Built-in assertions & test data access file
    - Initialize locators at class level
    - Return page objects for navigation
    - Single point import via page-loader
    - Use composition for common components (e.g., HeaderPanel)
+   - Use fixtures for dependency injection
 
 2. **Test Cases**
    - One assertion per test
-   - Use fluent chain for test steps
+   - Use fixtures for page objects (loginPage, accountPage, etc.)
    - Keep tests independent with domain-friendly scenarios (user journey based)
    - No shared state between tests
-   - Focus on business flows over technical details
+   - Use utility functions for data export and formatting
 
 3. **Configuration**
    - Use TypeScript for type safety
    - Configure timeouts in playwright.config.ts
    - Set environment-specific settings in env.config.ts
+   - Utility functions for data export in util.config.ts
 
 ## Example Test
 
 ```typescript
-test('should login successfully', async ({ page }) => {
-  await new LoginPage(page)
-    .navigate()
-    .then(page => page.enterUsername('Admin'))
-    .then(page => page.enterPassword('admin123'))
-    .then(page => page.clickLogin())
-    .then(home => home.verifyHomeState());
+test('should login successfully', async ({ loginPage, accountPage }) => {
+  const user = getCredentials();
+  
+  await loginPage.step_navigate()
+  await loginPage.step_enterUsername(user.username)
+  await loginPage.step_enterPassword(user.password)
+  await loginPage.step_clickLogin()
+
 });
 ```
 
@@ -103,6 +160,35 @@ Total Errors: 1
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Total: 8 | Valid: 6 | Redirects: 2 | Broken: 0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Pull Request Analysis
+- `npm run pulls:run` - Analyze open pull requests for GitHub repositories (Chrome, headed mode)
+- Generates `pull-request.csv` file at project root with PR details
+
+**Sample Output:**
+```
+📊 Pull Request Analysis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Repository: appwrite/appwrite
+Total Open PRs: 15
+
+📋 Recent Pull Requests:
+   1. #1234 - Fix authentication bug
+      Author: developer123
+   2. #1233 - Update documentation
+      Author: docwriter
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📄 CSV file generated: /path/to/pull-request.csv
+   Contains 5 pull requests
+```
+
+**CSV Format:**
+```csv
+PR Number,Title,Author,State,Created Date,URL
+1234,"Fix authentication bug",developer123,open,2023-12-15,https://github.com/appwrite/appwrite/pull/1234
+1233,"Update documentation",docwriter,open,2023-12-14,https://github.com/appwrite/appwrite/pull/1233
 ```
 
 ### Code Quality

@@ -6,7 +6,7 @@ import { getBaseURL } from '@config/env.config';
  * Handles request configuration, authentication, and response processing.
  */
 export class BaseClient {
-  private headers!: Record<string, string>;
+  protected headers!: Record<string, string>;
   protected baseURL: string;
 
   constructor(baseUrl?: string) {
@@ -125,7 +125,7 @@ export class BaseClient {
   /**
    * Normalize endpoint by handling trailing slashes
    */
-  private normalizeEndpoint(endpoint: string): string {
+  protected normalizeEndpoint(endpoint: string): string {
     return endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   }
 

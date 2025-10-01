@@ -4,13 +4,14 @@
   "description": "End-to-end testing for Fashion Hub application",
   "main": "index.js",
   "scripts": {
-    "ui:headed": "playwright test --headed --project=chromium --workers=1 --trace on",
-    "ui:headless": "playwright test",
     "ui:desktop": "TEST_ENV=${ENV:=local} playwright test --project=chromium --project=firefox",
     "ui:devices": "TEST_ENV=${ENV:=local} playwright test --project='Mobile Chrome' --project='iPad Pro'",
-    "ui:debug": "playwright test --debug",
+
+    "ui:headed": "playwright test --headed --project=chromium --workers=1 --trace on",
     "console:run": "playwright test tests/fashion-console.spec.ts --project=chromium --headed",
     "links:run": "playwright test tests/fashion-href.spec.ts --project=chromium --headed",
+    "pulls:run": "playwright test tests/fashion-pull.spec.ts --project=chromium --headed",
+
     "gen:report": "allure serve allure-results",
     "audit": "tsc --noEmit"
   },

@@ -1,7 +1,7 @@
 export const ENV_CONFIG = {
   local: {
-    baseURL: 'https://pocketaces2.github.io/fashionhub/login.html',
-    homeURL: 'https://pocketaces2.github.io/fashionhub/',
+    baseURL: 'http://localhost:4000/fashionhub/login.html',
+    homeURL: 'http://localhost:4000/fashionhub/',
     credentials: {
       username: 'demouser',
       password: 'fashion123',
@@ -9,8 +9,8 @@ export const ENV_CONFIG = {
     },
   },
   stage: {
-    baseURL: 'https://pocketaces2.github.io/fashionhub/login.html',
-    homeURL: 'https://pocketaces2.github.io/fashionhub/',
+    baseURL: 'https://staging-env/fashionhub/login.html',
+    homeURL: 'https://staging-env/fashionhub/fashionhub/',
     credentials: {
       username: 'demouser',
       password: 'fashion123',

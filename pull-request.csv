@@ -1,0 +1,6 @@
+PR Number,Title,Author,State,Created Date,URL
+10585,"fix: logs truncation tests",ChiragAgg5k,open,2025-10-01,https://github.com/appwrite/appwrite/pull/10585
+10584,"fix(sites): make queries parameter an array of strings for site list endpoint",Priyanshuthapliyal2005,open,2025-10-01,https://github.com/appwrite/appwrite/pull/10584
+10581,"fix(listTemplates): correct invalid template links in Create temporary deployment endpoint",Priyanshuthapliyal2005,open,2025-10-01,https://github.com/appwrite/appwrite/pull/10581
+10573,"[draft] init payments",atharvadeosthale,open,2025-09-30,https://github.com/appwrite/appwrite/pull/10573
+10570,"fix: Appwrite URL typo",amustaque97,open,2025-09-30,https://github.com/appwrite/appwrite/pull/10570

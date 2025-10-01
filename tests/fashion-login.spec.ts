@@ -1,5 +1,4 @@
-import { test } from '../src/config/page.config';
-import { LoginPage } from '@config/page-loader';
+import { test, expect } from '../src/config/page.config';
 import { getCredentials } from '@config/env.config';
 
 /**
