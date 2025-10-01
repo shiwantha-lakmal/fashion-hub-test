@@ -3,7 +3,7 @@ import { LoginPage } from '@config/page-loader';
 import { getCredentials } from '@config/env.config';
 
 /**
- * Test Case 1
+ * Test Case 1 Answer
  * As a tester, I want to make sure there are no console errors when you visit
  * Error details will be displayed in the console (intentionally passing tescase to check the console error)
  * https://pocketaces2.github.io/fashionhub/
