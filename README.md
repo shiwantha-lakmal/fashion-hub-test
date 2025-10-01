@@ -82,6 +82,20 @@ test('should login successfully', async ({ page }) => {
 - `npm run gen:report` - Show HTML test report
 
 
+### Console Error Testing
+- `npm run console:run` - Monitor console and page errors (Chrome, headed mode)
+Enabled console/page error monitoring across all over page puting single line code
+
+**Sample Output:**
+```
+📊 Console Error Summary
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total Errors: 1
+  • Console Errors: 1
+  • Unhandled Exceptions: 0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
 ### Code Quality
 - `npm run audit` - Run TypeScript type checking
 

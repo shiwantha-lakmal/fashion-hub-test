@@ -85,4 +85,13 @@ export class AccountPage extends BasePage {
     await this.header.step_clickAbout();
     return this;
   }
+
+  /**
+   * Verify console logs for errors.
+   * @returns Current AccountPage instance for method chaining
+   */
+  async verifyConsoleLogs() {
+    await super.verifyConsoleLogs();
+    return this;
+  }
 }
