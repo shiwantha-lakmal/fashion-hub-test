@@ -233,8 +233,3 @@ The project includes a CI/CD pipeline that:
 - **Report Deployment**: Automatic deployment to GitHub Pages
 - **Manual Trigger**: Can be triggered manually via workflow_dispatch
 
-### Viewing CI Reports
-After pipeline execution, view the Allure report at:
-```
-https://<your-username>.github.io/<repository-name>
-```
