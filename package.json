@@ -6,7 +6,6 @@
   "scripts": {
     "ui:headed": "playwright test --headed --project=chromium --workers=1 --trace on",
     "ui:headless": "playwright test",
-    "ui:gui": "playwright test --ui",
     "ui:desktop": "TEST_ENV=${ENV:=local} playwright test --project=chromium --project=firefox",
     "ui:devices": "TEST_ENV=${ENV:=local} playwright test --project='Mobile Chrome' --project='iPad Pro'",
     "ui:debug": "playwright test --debug",
@@ -15,20 +14,8 @@
     "gen:report": "allure serve allure-results",
     "audit": "tsc --noEmit"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shiwantha-lakmal/fashion-hub-test.git"
-  },
-  "keywords": [
-    "playwright",
-    "e2e",
-    "fashion-hub"
-  ],
   "author": "Shiwantha Lakmal",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/shiwantha-lakmal/fashion-hub-test/issues"
-  },
   "homepage": "https://github.com/shiwantha-lakmal/fashion-hub-test#readme",
   "devDependencies": {
     "@playwright/test": "^1.55.1",

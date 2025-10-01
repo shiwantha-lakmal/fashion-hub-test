@@ -78,7 +78,6 @@ test('should login successfully', async ({ page }) => {
 
 ### Debug & Reports
 - `npm run ui:debug` - Run tests in debug mode
-- `npm run ui:gui` - Open Playwright UI mode
 - `npm run gen:report` - Show HTML test report
 
 
