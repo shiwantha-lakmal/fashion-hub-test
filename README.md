@@ -23,9 +23,6 @@ npx playwright install
 
 ### Quick Start
 ```bash
-# Run all tests
-npm run ui:headless
-
 # Run specific test suites
 npm run console:run    # Console error testing
 npm run links:run      # Broken link validation
