@@ -21,6 +21,16 @@ export class BasePage {
   }
 
   /**
+   * Wait for page to be fully loaded.
+   * Waits for network to be idle.
+   * @returns Promise that resolves when page is ready
+   */
+  async waitForPageReady() {
+    await this.page.waitForLoadState('networkidle');
+    return this;
+  }
+
+  /**
    * Navigate to a specific URL.
    * @param url - The URL to navigate to
    * @returns Current page instance for method chaining
@@ -83,7 +93,45 @@ export class BasePage {
     console.log(`  • Console Errors: ${consoleErrors.length}`);
     console.log(`  • Unhandled Exceptions: ${pageErrors.length}`);
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+ 
+    return this;
+  }
 
+  /**
+   * Verify broken links on the page.
+   * Validates all links return 200 or 30x status codes, no 40x codes.
+   * @returns Current page instance for method chaining
+   */
+  async verify_brokenLinks() {
+    const hrefs = await this.page.$$eval('a[href]', (anchors) =>
+      anchors.map((a: any) => a.href).filter((href: string) => href && !href.startsWith('javascript:'))
+    );
+    const uniqueLinks = [...new Set(hrefs)];
+
+    const results = { valid: 0, redirect: 0, broken: [] as string[] };
+
+    for (const url of uniqueLinks) {
+      try {
+        const status = (await this.page.request.get(url)).status();
+        if (status < 300) results.valid++;
+        else if (status < 400) results.redirect++;
+        else if (status < 500) results.broken.push(`[${status}] ${url}`);
+      } catch (error: any) {
+        results.broken.push(`[Error] ${url}`);
+      }
+    }
+
+    console.log('\n📊 Link Validation Summary');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(`Total: ${uniqueLinks.length} | Valid: ${results.valid} | Redirects: ${results.redirect} | Broken: ${results.broken.length}`);
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+
+    if (results.broken.length > 0) {
+      results.broken.forEach((link, i) => console.log(`  ${i + 1}. ${link}`));
+      console.log('');
+    }
+
+    expect(results.broken.length, `Found ${results.broken.length} broken link(s)`).toBe(0);
     return this;
   }
 }

@@ -84,7 +84,6 @@ test('should login successfully', async ({ page }) => {
 
 ### Console Error Testing
 - `npm run console:run` - Monitor console and page errors (Chrome, headed mode)
-Enabled console/page error monitoring across all over page puting single line code
 
 **Sample Output:**
 ```
@@ -93,6 +92,17 @@ Enabled console/page error monitoring across all over page puting single line co
 Total Errors: 1
   • Console Errors: 1
   • Unhandled Exceptions: 0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Broken Link Validation
+- `npm run links:run` - Validate all links on homepage (Chrome, headed mode)
+
+**Sample Output:**
+```
+📊 Link Validation Summary
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total: 8 | Valid: 6 | Redirects: 2 | Broken: 0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

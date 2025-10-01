@@ -1,6 +1,7 @@
 export const ENV_CONFIG = {
   local: {
     baseURL: 'https://pocketaces2.github.io/fashionhub/login.html',
+    homeURL: 'https://pocketaces2.github.io/fashionhub/',
     credentials: {
       username: 'demouser',
       password: 'fashion123',
@@ -9,6 +10,7 @@ export const ENV_CONFIG = {
   },
   stage: {
     baseURL: 'https://pocketaces2.github.io/fashionhub/login.html',
+    homeURL: 'https://pocketaces2.github.io/fashionhub/',
     credentials: {
       username: 'demouser',
       password: 'fashion123',
@@ -17,6 +19,7 @@ export const ENV_CONFIG = {
   },
   production: {
     baseURL: 'https://pocketaces2.github.io/fashionhub/login.html',
+    homeURL: 'https://pocketaces2.github.io/fashionhub/',
     credentials: {
       username: 'demouser',
       password: 'fashion123',
@@ -28,6 +31,11 @@ export const ENV_CONFIG = {
 export function getBaseURL() {
   const env = process.env.TEST_ENV || 'production';
   return ENV_CONFIG[env as keyof typeof ENV_CONFIG].baseURL;
+}
+
+export function getHomeURL() {
+  const env = process.env.TEST_ENV || 'production';
+  return ENV_CONFIG[env as keyof typeof ENV_CONFIG].homeURL;
 }
 
 export function getCredentials() {
