@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../src/config/page.config';
 import { LoginPage } from '@config/page-loader';
 import { getCredentials } from '@config/env.config';
 
@@ -8,29 +8,27 @@ import { getCredentials } from '@config/env.config';
 */
 
 test.describe('FashionHub Login Functionality', () => {
-  test('should login successfully with valid credentials', async ({ page }) => {
+  test('should login successfully with valid credentials', async ({ loginPage, homePage, accountPage }) => {
     const user = getCredentials();
     
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_clickLogin())
-      .then(accountPage => accountPage.verify_welcomeMessage(user.account))
-      .then(accountPage => accountPage.verify_logoutButton())
-      .then(accountPage => accountPage.step_logout())
-      .then(loginPage => loginPage.verify_onLoginPage());
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username)
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_clickLogin()
+    await accountPage.verify_welcomeMessage(user.account)
+    await accountPage.verify_logoutButton()
+    await accountPage.step_logout()
+    await loginPage.verify_onLoginPage()
   });
 
   
-  test('should apear error message with invalid credentials', async ({ page }) => {
+  test('should apear error message with invalid credentials', async ({ loginPage }) => {
     const user = getCredentials();
     
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username+"x"))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_errorLogin())
-      .then(loginPage => loginPage.verify_errorMessage('Invalid username or password.'));
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username+"x")
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_errorLogin()
+    await loginPage.verify_errorMessage('Invalid username or password.')
   });
 });
